@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상세 페이지</title>
+</head>
+<body>
+<h1 th:text="${item.name}">제목</h1>
+<p th:text="'작성자 : '+${item.user.username}">작성자</p>
+<p th:text="'작성 시간 : ' +${#temporals.format(item.rdate,'yyyy-MM-dd HH:mm:ss')}">작성 시간</p>
+<p th:text="${item.content}">내용</p>
+<p th:text="'거래 여부 : ' + (${item.complete} ? '완료' : '진행중')">거래 여부 체크</p>
+
+<form th:if="${isAuthor} or ${isAdmin}" th:action="@{/itemList/delete/{id}(id=${item.itemkey})}" method="post">
+    <button type="submit">글 삭제</button>
+</form>
+<form th:if="${isAuthor}" th:action="@{/itemList/modifyForm/{id}(id=${item.itemkey})}">
+    <button type="submit">글 수정</button>
+</form>
+</body>
+</html>

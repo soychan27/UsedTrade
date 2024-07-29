@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 수정</title>
+</head>
+<body>
+<h2>글 수정하기</h2>
+<form th:action="@{/itemList/modify/{id}(id=${item.itemkey})}" method="post">
+    <input type="hidden" name="user.userkey" th:value="${item.user.userkey}">
+    <input name="name" type="text" th:value="${item.name}">
+    <textarea name="content" th:text="${item.content}"></textarea>
+    <input name="price" type="text" th:value="${item.price}">
+    <input name="way" type="text" th:value="${item.way}">
+    <div class="radio">
+        <input type="radio" name="complete" th:value="true" th:checked="${item.complete} == true" id ="complete-yes">
+        <label for="complete-yes">거래 완료</label>
+        <br/>
+        <input type="radio" name="complete" th:value="false" th:checked="${item.complete} == false" id="complete-no">
+        <label for="complete-no">거래 미완료</label>
+    </div>
+    <button type="submit">작성</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 리스트</title>
+</head>
+<body>
+<h2> 중고품 게시판</h2>
+<table>
+  <colgroup>
+    <col style="width: 10%">
+    <col style="width: 90%">
+  </colgroup>
+  <thead>
+  <tr>
+    <th>글번호</th>
+    <th>제목</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="item : ${list}">
+    <td th:text="${item.itemkey}"}1></td>
+    <td>
+      <a th:text="${item.name}" th:href="@{'/itemList/'+${item.itemkey}}"></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<button onclick="location.href='/itemList/writeForm'">글 작성</button>
+</body>
+</html>
