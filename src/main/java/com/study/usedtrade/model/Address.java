@@ -18,7 +18,6 @@ public class Address {
     private User user;
 
     private String name;
-    private String address;
     private String addressDetail;
     private String tel;
     private String req;

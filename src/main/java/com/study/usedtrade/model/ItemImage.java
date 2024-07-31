@@ -18,5 +18,8 @@ public class ItemImage {
     private Item item;
 
     @Column(nullable = false)
+    private String imageName;
+
+    @Column(nullable = false)
     private String imagePath;
 }

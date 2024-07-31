@@ -31,7 +31,7 @@ public class User {
     private String role;
     private String tel;
     private String provider;
-    private String providerId;
+    private String provider_id;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
@@ -44,7 +44,7 @@ public class User {
         this.email = email;
         this.role = role;
         this.provider = provider;
-        this.providerId = providerId;
+        this.provider_id = providerId;
         this.tel = tel;
         this.nickname = nickname;
     }
