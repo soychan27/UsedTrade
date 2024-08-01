@@ -1,6 +1,8 @@
 package com.study.usedtrade.service;
 
+import com.study.usedtrade.model.Address;
 import com.study.usedtrade.model.Item;
+import com.study.usedtrade.model.User;
 import com.study.usedtrade.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,24 +20,7 @@ public class ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
-    /*
-    public void write(Item item, MultipartFile file) throws Exception{
-        if(!file.isEmpty()) {
-            String projectPath = System.getProperty("user.dir") + "\\src\\main\\resource\\static\\files";
 
-            if (!Files.exists(Paths.get(projectPath))) {
-                Files.createDirectories(Paths.get(projectPath));
-            }
-
-            UUID uuid = UUID.randomUUID();
-            String imagename = uuid + "_" + file.getOriginalFilename();
-            File savefile = new File(projectPath, imagename);
-            file.transferTo(savefile);
-
-            item.setImg1(imagename);
-        }
-    }
-    */
     @GetMapping("/itemList")
     public List<Item> itemList() {
         return itemRepository.findAll();
@@ -56,5 +41,9 @@ public class ItemService {
 
     public void itemDelete(Integer id){
         itemRepository.deleteById(id);
+    }
+
+    public List<Item> itemListUser(User user) {
+        return itemRepository.findByUser(user);
     }
 }

@@ -19,7 +19,7 @@
   </thead>
   <tbody>
   <tr th:each="item : ${list}">
-    <td th:text="${item.itemkey}"}1></td>
+    <td th:text="${item.itemkey}"></td>
     <td>
       <a th:text="${item.name}" th:href="@{'/itemList/'+${item.itemkey}}"></a>
     </td>

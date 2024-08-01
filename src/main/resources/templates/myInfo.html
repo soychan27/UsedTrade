@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>내 정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .completed {
+            background-color: #e0f7fa;
+        }
+        .in-progress {
+            background-color: #ffebee;
+        }
+        .main-link {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .main-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<h1>내 정보</h1>
+<h2>장소 목록</h2>
+<table>
+    <thead>
+    <tr>
+        <th>장소 이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="address : ${addressList}">
+        <td>
+            <a th:text="${address.name}" th:href="@{'/addrList/'+${address.addrkey}}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>내가 쓴 글</h2>
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${itemList}" th:classappend="${item.complete} ? 'completed' : 'in-progress'">
+        <td>
+            <a th:text="${item.name}" th:href="@{'/itemList/'+${item.itemkey}}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/" class="main-link">메인 화면</a>
+</body>
+</html>
