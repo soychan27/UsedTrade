@@ -90,6 +90,22 @@
     </tr>
     </tbody>
 </table>
+
+<h2>위시 리스트</h2>
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${wishItemList}">
+        <td>
+            <a th:text="${item.name}" th:href="@{'/itemList/'+${item.itemkey}}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 <a href="/" class="main-link">메인 화면</a>
 </body>
 </html>

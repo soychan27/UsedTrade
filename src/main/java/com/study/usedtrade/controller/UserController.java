@@ -1,9 +1,12 @@
 package com.study.usedtrade.controller;
 
+import com.study.usedtrade.model.Item;
 import com.study.usedtrade.model.User;
+import com.study.usedtrade.model.Wish;
 import com.study.usedtrade.repository.UserRepository;
 import com.study.usedtrade.service.AddressService;
 import com.study.usedtrade.service.ItemService;
+import com.study.usedtrade.service.WishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -25,6 +30,8 @@ public class UserController {
     private AddressService addressService;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private WishService wishService;
 
     @GetMapping("/loginForm")
     public String LoginForm(){
@@ -53,6 +60,11 @@ public class UserController {
 
         model.addAttribute("addressList", addressService.addressList(user));
         model.addAttribute("itemList", itemService.itemListUser(user));
+        List<Wish> wishList = wishService.findByUser(user);
+        List<Item> wishItemList = wishList.stream()
+                .map(Wish::getItem)
+                .collect(Collectors.toList());
+        model.addAttribute("wishItemList", wishItemList);
         return "myInfo";
     }
 }

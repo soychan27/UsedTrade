@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     List<Item> findByUser(User user);
+    public Item findByItemkey(Integer itemkey);
 }

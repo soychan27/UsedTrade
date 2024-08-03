@@ -17,5 +17,15 @@
 <form th:if="${isAuthor}" th:action="@{/itemList/modifyForm/{id}(id=${item.itemkey})}">
     <button type="submit">글 수정</button>
 </form>
+
+<form th:if="${!isInWishList}" th:action="@{/wishlist/add}" method="post">
+    <input type="hidden" name="itemkey" th:value="${item.itemkey}"/>
+    <button type="submit">위시리스트에 추가</button>
+</form>
+
+<form th:if="${isInWishList}" th:action="@{/wishlist/delete}" method="post">
+    <input type="hidden" name="itemkey" th:value="${item.itemkey}"/>
+    <button type="submit">위시리스트에서 삭제</button>
+</form>
 </body>
 </html>

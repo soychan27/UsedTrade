@@ -46,4 +46,8 @@ public class ItemService {
     public List<Item> itemListUser(User user) {
         return itemRepository.findByUser(user);
     }
+
+    public Item findByItemkey(Integer itemkey) {
+        return itemRepository.findByItemkey(itemkey);
+    }
 }

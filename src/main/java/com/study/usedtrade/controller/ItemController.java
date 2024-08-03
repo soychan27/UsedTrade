@@ -4,6 +4,7 @@ import com.study.usedtrade.model.Item;
 import com.study.usedtrade.model.User;
 import com.study.usedtrade.service.ItemService;
 import com.study.usedtrade.service.UserService;
+import com.study.usedtrade.service.WishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private WishService wishService;
 
     @GetMapping("/itemList")
     public String itemList(Model model) {
@@ -96,6 +100,7 @@ public class ItemController {
         model.addAttribute("item", item);
         model.addAttribute("isAuthor", user.getUserkey().equals(item.getUser().getUserkey()));
         model.addAttribute("isAdmin", user.getRole().equals("ROLE_ADMIN"));
+        model.addAttribute("isInWishList", wishService.isItemInWishList(user, item));
         return "ItemView";
     }
 
