@@ -21,4 +21,10 @@ public class AddressService {
     public void write(Address address) {
         addressRepository.save(address);
     }
+
+    public Address addressView(Integer id) {return addressRepository.findById(id).get();}
+
+    public void addressDelete(Integer id) {addressRepository.deleteById(id);}
+
+    public void save(Address address) {addressRepository.save(address);}
 }

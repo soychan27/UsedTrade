@@ -69,7 +69,7 @@
     <tbody>
     <tr th:each="address : ${addressList}">
         <td>
-            <a th:text="${address.name}" th:href="@{'/addrList/'+${address.addrkey}}"></a>
+            <a th:text="${address.name}" th:href="@{'/AddressView/'+${address.addrkey}}"></a>
         </td>
     </tr>
     </tbody>
