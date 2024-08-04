@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Comment {
+public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer commentkey;
+    private Integer replykey;
 
     @ManyToOne
     @JoinColumn(name = "userkey", nullable = false)

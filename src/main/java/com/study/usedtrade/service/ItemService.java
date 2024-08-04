@@ -13,6 +13,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -49,5 +50,9 @@ public class ItemService {
 
     public Item findByItemkey(Integer itemkey) {
         return itemRepository.findByItemkey(itemkey);
+    }
+
+    public Optional<Item> getItem(Integer itemkey) {
+        return itemRepository.findById(itemkey);
     }
 }
