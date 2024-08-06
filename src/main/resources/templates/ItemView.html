@@ -11,6 +11,14 @@
 <p th:text="${item.content}">내용</p>
 <p th:text="'거래 여부 : ' + (${item.complete} ? '완료' : '진행중')">거래 여부 체크</p>
 <p th:text="'거래 방법 : ' + (${item.way})">거래 방법</p>
+
+<div>
+    <h2>이미지</h2>
+    <div th:each="image : ${images}">
+        <img th:src="@{${image.imagePath}}" alt="Image" style="max-width: 200px; max-height: 200px;"/>
+    </div>
+</div>
+
 <form th:if="${isAuthor} or ${isAdmin}" th:action="@{/itemList/delete/{id}(id=${item.itemkey})}" method="post">
     <button type="submit">글 삭제</button>
 </form>

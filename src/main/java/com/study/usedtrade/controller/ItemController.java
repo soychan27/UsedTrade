@@ -1,21 +1,22 @@
 package com.study.usedtrade.controller;
 
 import com.study.usedtrade.model.Item;
+import com.study.usedtrade.model.ItemImage;
 import com.study.usedtrade.model.Reply;
 import com.study.usedtrade.model.User;
-import com.study.usedtrade.service.ItemService;
-import com.study.usedtrade.service.ReplyService;
-import com.study.usedtrade.service.UserService;
-import com.study.usedtrade.service.WishService;
+import com.study.usedtrade.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class ItemController {
@@ -32,6 +33,9 @@ public class ItemController {
     @Autowired
     private ReplyService replyService;
 
+    @Autowired
+    private ItemImageService itemImageService;
+
     @GetMapping("/itemList")
     public String itemList(Model model) {
         model.addAttribute("list", itemService.itemList());
@@ -44,14 +48,18 @@ public class ItemController {
     }
 
     @PostMapping("/itemList/write")
-    public String itemListWrite(Item item, Model model, Principal principal) throws Exception {
+    public String itemListWrite(Item item,
+                                @RequestParam("files") MultipartFile[] files,
+                                Model model,
+                                Principal principal) throws Exception {
         String username = principal.getName();
         User user = userService.findByUsername(username);
         System.out.println(user);
 
         item.setUser(user);
         item.setRdate(LocalDateTime.now());
-        itemService.write(item);
+
+        itemService.write(item, files);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl", "/itemList");
@@ -102,11 +110,15 @@ public class ItemController {
         String username = principal.getName();
         User user = userService.findByUsername(username);
 
+        // 이미지 목록을 가져와 모델에 추가
+        List<ItemImage> images = itemImageService.findByItem(item);
+
         model.addAttribute("item", item);
         model.addAttribute("replies", replyService.findAllByItem(item));
         model.addAttribute("isAuthor", user.getUserkey().equals(item.getUser().getUserkey()));
         model.addAttribute("isAdmin", user.getRole().equals("ROLE_ADMIN"));
         model.addAttribute("isInWishList", wishService.isItemInWishList(user, item));
+        model.addAttribute("images", images);
         return "ItemView";
     }
 
