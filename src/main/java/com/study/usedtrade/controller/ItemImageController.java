@@ -14,6 +14,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+
+
 @Controller
 @RequestMapping("/itemImage")
 @Tag(name = "ItemImageController", description = "ItemImageController")
@@ -30,6 +32,17 @@ public class ItemImageController {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
+    public ResponseEntity<String> handleFileUpload(
+            @ModelAttribute Item item, @RequestParam("files") MultipartFile[] files) {
+
+        try {
+            itemService.write(item, files);
+            return ResponseEntity.ok("Files uploaded successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload files");
+        }
+    }
+    /*
     public ResponseEntity<String> handleFileUpload(
             @RequestParam("name") String name,
             @RequestParam("content") String content,
@@ -52,4 +65,5 @@ public class ItemImageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload files");
         }
     }
+    */
 }

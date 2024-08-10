@@ -45,7 +45,7 @@ public class UserController {
 
     @PostMapping("/join")
     public String Join(User user){
-        user.setRole("ROLE_USER");
+        user.setRole("ROLE_USER");  //기본적으로 USER 권한
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);

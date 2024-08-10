@@ -22,37 +22,39 @@ public class AddressController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/AddressForm")
+    @GetMapping("/AddressForm") //주소 입력 GET
     public String AddressForm() {
         return "AddressForm";
     }
 
-    @PostMapping("/Address")
+    @PostMapping("/Address")    //주소 입력 POST
     public String Address(Principal principal, Address address, Model model) throws Exception{
-        String username = principal.getName();
-        User user = userService.findByUsername(username);
+        String username = principal.getName();  //principal을 통해 username을 GET
+        User user = userService.findByUsername(username);   //GET한 username을 userSerivce를 통해 find하여 user
 
-        address.setUser(user);
-        addressService.write(address);
+        address.setUser(user);  //address의 user값을 위 과정을 통해 구한 user로 설정 (로그인한 user 정보)
+        addressService.write(address);  //address의 값 저장
 
         model.addAttribute("message","주소 등록이 완료되었습니다.");
         model.addAttribute("searchUrl","/");
         return "message";
     }
 
-    @GetMapping("/AddressView/{id}")
+    @GetMapping("/AddressView/{id}")    //입력한 주소 확인하기 위한 GET
     public String AddressView(@PathVariable("id") Integer id, Model model, Principal principal) {
         Address address = addressService.addressView(id);
         String username = principal.getName();
         User user = userService.findByUsername(username);
 
-        model.addAttribute("address", address);
+        model.addAttribute("address", address); //address라는 이름으로 "AddressView"로 전달
         model.addAttribute("isAuthor", user.getUserkey().equals(address.getUser().getUserkey()));
+        //글쓴이와 현재 로그인한 사용자가 같다면 "isAuthor"로 "AddressView"로 전달
         return "AddressView";
     }
 
     @PostMapping("/AddressView/delete/{id}")
     public String AddressDelete(@PathVariable("id") Integer id, Model model, Principal principal) {
+        //주소에 있는 {id}를 가져오는 @PathVariable
         Address address = addressService.addressView(id);
         String username = principal.getName();
         User user = userService.findByUsername(username);
@@ -72,6 +74,7 @@ public class AddressController {
         String username= principal.getName();
         User user = userService.findByUsername(username);
         if (user == null || !user.getUserkey().equals(address.getUser().getUserkey())) {
+            //로그인 안 되어있거나 사용자와 글쓴이가 다를 경우
             model.addAttribute("message", "수정 권한이 없습니다.");
             model.addAttribute("searchUrl", "/myInfo");
             return "message";
