@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입 페이지</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <h2>회원가입</h2>
@@ -17,6 +18,11 @@
     <br/>
     <input type="email" name="email" placeholder="이메일"/>
     <br/>
+
+    <!-- reCAPTCHA 위젯 -->
+    <div class="g-recaptcha" th:data-sitekey="${recaptchaSiteKey}"></div>
+    <br/>
+
     <button type="submit">회원가입</button>
 </form>
 <a href="/">메인화면으로</a>
