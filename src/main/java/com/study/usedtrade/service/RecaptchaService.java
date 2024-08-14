@@ -1,6 +1,6 @@
 package com.study.usedtrade.service;
 
-import com.study.usedtrade.config.auth.RecaptchaConfig;
+import com.study.usedtrade.config.RecaptchaConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

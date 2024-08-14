@@ -1,4 +1,4 @@
-package com.study.usedtrade.config.auth;
+package com.study.usedtrade.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
